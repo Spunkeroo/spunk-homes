@@ -114,6 +114,7 @@ footer{background:#1C1C1C;color:rgba(255,255,255,0.6);padding:48px 24px 24px;}
 .hero-text{order:1;} .calc-card{order:0;}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important;}}
+@keyframes _livePulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.4)}}
 </style>
 </head>
 <body>
@@ -147,7 +148,8 @@ footer{background:#1C1C1C;color:rgba(255,255,255,0.6);padding:48px 24px 24px;}
         <span class="badge">✓ No Sign-Up</span>
         <span class="badge">✓ 2026 Prices</span>
       </div>
-      <h1>Smart Home Improvement.<br><span>Real Costs.</span></h1>
+      <div id="live-indicator" style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#f97316;font-weight:700;margin-bottom:12px;letter-spacing:0.5px;"><span style="width:7px;height:7px;background:#f97316;border-radius:50%;animation:_livePulse 2s infinite;display:inline-block;"></span>LIVE&nbsp;·&nbsp;<span id="live-ts">--:--:--</span></div>
+<h1>Smart Home Improvement.<br><span>Real Costs.</span></h1>
       <p>Get instant, accurate cost estimates for any home project powered by 2026 real market data. No contractors calling you — just honest numbers.</p>
       <div class="hero-ctas">
         <a href="https://www.amazon.com/s?k=home+improvement+tools&tag=spunk01-20" rel="noopener sponsored" target="_blank" class="btn-orange">Shop Tools on Amazon</a>
@@ -361,6 +363,23 @@ function rateUs(n){
 if(localStorage.getItem('spunkhomes_rating')){document.getElementById('ratingMsg').textContent='You rated us '+localStorage.getItem('spunkhomes_rating')+'/5!';if(document.getElementById('stars'))document.getElementById('stars').style.display='none';}
 function shareX(){window.open('https://twitter.com/intent/tweet?text=Just+used+this+free+AI+home+improvement+cost+calculator+%F0%9F%8F%A0+Get+instant+estimates+for+any+project+%E2%80%94+spunk.homes&url=https%3A%2F%2Fspunk.homes','_blank');}
 function copyLink(){navigator.clipboard.writeText('https://spunk.homes').then(function(){alert('Link copied!');});}
+</script>
+<script>
+/* 10-second content heartbeat */
+(function(){
+  var _n=0;
+  function _hb(){
+    _n++;
+    var el=document.getElementById('live-ts');
+    if(el) el.textContent=new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+    var rotators=document.querySelectorAll('[data-rotate]');
+    rotators.forEach(function(r){
+      try{var arr=JSON.parse(r.getAttribute('data-rotate'));if(arr.length)r.textContent=arr[_n%arr.length];}catch(e){}
+    });
+  }
+  setInterval(_hb,10000);
+  setTimeout(_hb,500);
+})();
 </script>
 </body>
 </html>
